@@ -1,0 +1,324 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Me</title>
+  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fef7e7;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .navbar {
+      background-color: #f9e1ae;
+      padding: 0px;
+      margin: 0px;
+      overflow: hidden;
+      display: flex;
+      border-radius: 0px 0px 15px 15px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar img {
+      float: left;
+      width: 50px;
+      height: 50px;
+      margin-top: 10px;
+      margin-left: 20px;
+      margin-bottom: 10px;
+      border-radius: 15px;
+      display: block;
+    }
+    .quick_links {
+      display: flex;
+      gap: 30px;
+      margin-right: 1rem;
+    }
+    .quick_links a {
+      background-color: #29a7f5;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      color: white;
+      text-decoration: none;
+      padding: 14px 16px;
+      display: block;
+    }
+    .quick_links a:hover {
+      background-color: #1e90ff;
+    }
+    @media (max-width: 700px) {
+      .navbar {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding: 8px 10px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navbar img {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        margin: 0 10px 0 0;
+      }
+      .quick_links {
+        flex-wrap: nowrap;
+        gap: 8px;
+        margin-right: 0;
+      }
+      .quick_links a {
+        flex-shrink: 0;
+        white-space: nowrap;
+        padding: 8px 12px;
+        font-size: 0.85rem;
+      }
+    }
+    .herosection {
+      text-align: center;
+      padding: 60px 20px 30px;
+    }
+    .herosection p {
+      max-width: 800px;
+      margin: 15px auto 0;
+      color: #444;
+      line-height: 1.6;
+      text-align: justify;
+    }
+    .section {
+      padding: 50px 20px;
+    }
+    .section.alt {
+      background-color: #f9e1ae;
+    }
+    .section h2 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .info_cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    @media (max-width: 900px) {
+      .info_cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 600px) {
+      .info_cards {
+        grid-template-columns: 1fr;
+      }
+    }
+    .card {
+      background-color: #fef7e7;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+    .section.alt .card {
+      background-color: #fef7e7;
+    }
+    .section:not(.alt) .card {
+      background-color: #f9e1ae;
+    }
+    .card p {
+      color: #444;
+      line-height: 1.5;
+    }
+    .goals p {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+      color: #444;
+      line-height: 1.6;
+    }
+    .skills_tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .tag {
+      background-color: #29a7f5;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      border-radius: 20px;
+      color: white;
+      padding: 8px 18px;
+      font-size: 0.95rem;
+    }
+    footer {
+      background-color: #fef7e7;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <div class="navbar">
+      <a href="index.html">
+        <img src="./assets/logo.png" alt="Logo" />
+      </a>
+      <div class="quick_links">
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About Me</a>
+        <a href="blog.html">Blog</a>
+        <a href="photography.html">Photography</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="herosection">
+      <h1>About Me</h1>
+      <p>
+        I am a passionate Computer Science student from Bel Air, Mauritius, with
+        a strong interest in technology, programming, web development, robotics,
+        and digital media. My academic journey began at Camp de Masque State
+        College, followed by Sir Leckraz Teelock State Secondary School
+        (SLTSSS). I am currently pursuing a three-year, full-time BSc (Hons) in
+        Computer Science at the University of Mauritius (UoM), where I continue
+        to expand my knowledge in software development, problem-solving, and
+        emerging technologies while preparing for a career in the technology
+        industry.
+      </p>
+      <p>
+        My journey into technology began when I was 14, when I was first
+        introduced to Arduino and robotics. What started with simple
+        microcontroller projects soon grew into a passion for programming and
+        software development. I later explored front-end web development,
+        learning HTML, CSS, and JavaScript, and have since built multiple
+        responsive websites. One of my most rewarding projects was designing and
+        developing the official website for SLTSSS. I enjoy turning ideas into
+        practical and user-friendly digital solutions, and I am always eager to
+        learn new technologies and improve my skills.
+      </p>
+      <p>
+        Alongside programming, I have a strong passion for photography,
+        videography, and digital content creation. I served as the President of
+        the SLT Press Club, where I documented numerous school events through
+        photography and videography while leading the club&rsquo;s activities. I
+        am experienced in video editing using DaVinci Resolve and have produced
+        a wide range of videos for the school. I also had the opportunity to
+        edit and design the entire SLTSSS 2026 school magazine, combining
+        creativity with technical skills to produce a professional publication.
+      </p>
+      <p>
+        Beyond technology and media, I am an enthusiastic astrophotography
+        enthusiast who enjoys capturing the beauty of the night sky. I am
+        fascinated by astronomy and love photographing the Moon, stars, planets,
+        and deep-sky objects whenever conditions allow. Astrophotography has
+        strengthened my patience, attention to detail, and appreciation for
+        science, while complementing my interests in technology and photography.
+        Looking ahead, I aspire to continue developing my skills in Computer
+        Science and contribute to innovative projects as a developer within
+        Oracle Club, with the long-term goal of building a successful career in
+        the technology industry.
+      </p>
+    </div>
+
+    <div class="section alt">
+      <h2>Skills</h2>
+      <div class="skills_tags">
+        <span class="tag">Python</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">C++</span>
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">Next.js</span>
+        <span class="tag">Arduino</span>
+        <span class="tag">ESP32</span>
+        <span class="tag">DaVinci Resolve</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Academic Background</h2>
+      <div class="info_cards">
+        <div class="card">
+          <h3>Camp de Masque State College</h3>
+          <p>
+            Began my academic journey here, building strong foundations ahead of
+            secondary school.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Sir Leckraz Teelock SSS</h3>
+          <p>
+            Completed secondary education at Sir Leckraz Teelock State Secondary
+            School (SLTSSS).
+          </p>
+        </div>
+        <div class="card">
+          <h3>University of Mauritius</h3>
+          <p>
+            Currently pursuing a three-year, full-time BSc (Hons) in Computer
+            Science.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section alt">
+      <h2>My Journey</h2>
+      <div class="info_cards">
+        <div class="card">
+          <h3>Arduino &amp; Robotics</h3>
+          <p>
+            At 14, I was introduced to Arduino and robotics, sparking my passion
+            for technology through microcontroller projects.
+          </p>
+        </div>
+        <div class="card">
+          <h3>SLTSSS Website</h3>
+          <p>
+            Designed and developed the official website for SLTSSS after
+            learning HTML, CSS and JavaScript.
+          </p>
+        </div>
+        <div class="card">
+          <h3>SLT Press Club</h3>
+          <p>
+            Served as President, leading the club and documenting school events
+            through photography and videography.
+          </p>
+        </div>
+        <div class="card">
+          <h3>School Magazine</h3>
+          <p>
+            Edited and designed the entire SLTSSS 2026 school magazine using
+            DaVinci Resolve and creative editing skills.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Astrophotography</h3>
+          <p>
+            Capture the Moon, stars, planets, and deep-sky objects, combining my
+            love of astronomy with photography.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section goals">
+      <h2>Goals &amp; Aspirations</h2>
+      <p>
+        Looking ahead, I aspire to continue developing my skills in Computer
+        Science and contribute to innovative projects as a developer within
+        Oracle Club, with the long-term goal of building a successful career in
+        the technology industry.
+      </p>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 &lt;amankauroo/&gt;</p>
+    </footer>
+  </body>
+  <script></script>
+</html>

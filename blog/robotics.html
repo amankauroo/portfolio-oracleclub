@@ -1,0 +1,194 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Journey into Robotics with Arduino and ESP32</title>
+  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fef7e7;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .navbar {
+      background-color: #f9e1ae;
+      padding: 0px;
+      margin: 0px;
+      overflow: hidden;
+      display: flex;
+      border-radius: 0px 0px 15px 15px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar img {
+      float: left;
+      width: 50px;
+      height: 50px;
+      margin-top: 10px;
+      margin-left: 20px;
+      margin-bottom: 10px;
+      border-radius: 15px;
+      display: block;
+    }
+    .quick_links {
+      display: flex;
+      gap: 30px;
+      margin-right: 1rem;
+    }
+    .quick_links a {
+      background-color: #29a7f5;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      color: white;
+      text-decoration: none;
+      padding: 14px 16px;
+      display: block;
+    }
+    .quick_links a:hover {
+      background-color: #1e90ff;
+    }
+    @media (max-width: 700px) {
+      .navbar {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding: 8px 10px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navbar img {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        margin: 0 10px 0 0;
+      }
+      .quick_links {
+        flex-wrap: nowrap;
+        gap: 8px;
+        margin-right: 0;
+      }
+      .quick_links a {
+        flex-shrink: 0;
+        white-space: nowrap;
+        padding: 8px 12px;
+        font-size: 0.85rem;
+      }
+    }
+    .article-hero {
+      text-align: center;
+      padding: 60px 20px 20px;
+    }
+    .article-hero .post-date {
+      color: #555;
+      margin: 0;
+    }
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      color: #1e6fb0;
+    }
+    .article {
+      flex: 1;
+      max-width: 750px;
+      margin: 20px auto 60px;
+      padding: 0 20px;
+      color: #444;
+      line-height: 1.7;
+      text-align: justify;
+    }
+    .article strong {
+      color: #1e6fb0;
+    }
+    footer {
+      background-color: #fef7e7;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <div class="navbar">
+      <a href="../index.html">
+        <img src="../assets/logo.png" alt="Logo" />
+      </a>
+      <div class="quick_links">
+        <a href="../projects.html">Projects</a>
+        <a href="../about.html">About Me</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../photography.html">Photography</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="article-hero">
+      <h1>My Journey into Robotics with Arduino and ESP32</h1>
+      <p class="post-date">August 2026</p>
+      <a class="back-link" href="../blog.html">&larr; Back to Blog</a>
+    </div>
+    <article class="article">
+      <p>
+        My journey into robotics began with the Arduino Uno, a platform that
+        introduced me to the exciting world of electronics and programming. Like
+        many beginners, my very first project was the classic
+        <strong>Blink</strong> program. Although it was only a simple 5 mm LED
+        turning on and off through the Arduino IDE, it was the moment that
+        sparked my passion for embedded systems. Seeing a few lines of code
+        control a physical component inspired me to explore what else was
+        possible with microcontrollers.
+      </p>
+      <p>
+        As my knowledge grew, I started experimenting with a wide variety of
+        sensors and electronic modules. I worked with the
+        <strong>DHT11</strong> and <strong>DHT22</strong> temperature and
+        humidity sensors, the <strong>MQ-2 gas sensor</strong>, the
+        <strong>HC-SR04 ultrasonic sensor</strong> for distance measurement, and
+        the <strong>LCD 1602 display</strong> with an I&sup2;C module to present
+        sensor data. Every new component introduced me to different
+        communication protocols and programming techniques, allowing me to build
+        increasingly sophisticated projects while strengthening my understanding
+        of electronics and embedded programming.
+      </p>
+      <p>
+        One of my favourite projects was building a Bluetooth-controlled robotic
+        car using the <strong>Arduino Uno</strong>, an
+        <strong>L293D motor driver shield</strong>, four DC motors, and the
+        <strong>HC-05 Bluetooth module</strong>. Controlling the vehicle
+        wirelessly from a smartphone gave me valuable experience in motor
+        control, wireless communication, and power management. I also designed a
+        temperature data logger that continuously recorded sensor readings onto
+        an SD card using an SD card module, introducing me to data logging and
+        file management on embedded systems.
+      </p>
+      <p>
+        As I continued learning, I explored additional hardware including servo
+        motors, joysticks, the <strong>MPU6500</strong> motion sensor for
+        measuring acceleration and rotational movement, and many other
+        Arduino-compatible sensors and modules. Working with these devices
+        helped me understand motion sensing, sensor calibration, and real-world
+        applications of embedded systems. Each project challenged me to solve
+        practical problems and improve both my programming and hardware design
+        skills.
+      </p>
+      <p>
+        Today, I am expanding my knowledge by working with the
+        <strong>ESP32</strong>, a significantly more powerful microcontroller
+        than the Arduino Uno. Running at up to <strong>240 MHz</strong>,
+        compared to the Arduino Uno&rsquo;s <strong>16 MHz</strong>, the ESP32
+        provides built-in Wi-Fi and Bluetooth connectivity, opening the door to
+        Internet of Things (IoT) applications. With these capabilities, I can
+        develop projects that communicate over the internet, host small web
+        servers, send sensor data to websites, and remotely monitor or control
+        devices. Exploring the ESP32 has taken my robotics journey to the next
+        level and continues to inspire me to build smarter, more connected
+        systems.
+      </p>
+    </article>
+    <footer>
+      <p>&copy; 2026 &lt;amankauroo/&gt;</p>
+    </footer>
+  </body>
+  <script></script>
+</html>

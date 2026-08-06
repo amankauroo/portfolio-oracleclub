@@ -1,0 +1,222 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Photography</title>
+  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fef7e7;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .navbar {
+      background-color: #f9e1ae;
+      padding: 0px;
+      margin: 0px;
+      overflow: hidden;
+      display: flex;
+      border-radius: 0px 0px 15px 15px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar img {
+      float: left;
+      width: 50px;
+      height: 50px;
+      margin-top: 10px;
+      margin-left: 20px;
+      margin-bottom: 10px;
+      border-radius: 15px;
+      display: block;
+    }
+    .quick_links {
+      display: flex;
+      gap: 30px;
+      margin-right: 1rem;
+    }
+    .quick_links a {
+      background-color: #29a7f5;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      color: white;
+      text-decoration: none;
+      padding: 14px 16px;
+      display: block;
+    }
+    .quick_links a:hover {
+      background-color: #1e90ff;
+    }
+    @media (max-width: 700px) {
+      .navbar {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding: 8px 10px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navbar img {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        margin: 0 10px 0 0;
+      }
+      .quick_links {
+        flex-wrap: nowrap;
+        gap: 8px;
+        margin-right: 0;
+      }
+      .quick_links a {
+        flex-shrink: 0;
+        white-space: nowrap;
+        padding: 8px 12px;
+        font-size: 0.85rem;
+      }
+    }
+    .herosection {
+      text-align: center;
+      padding: 60px 20px 30px;
+    }
+    .herosection p {
+      max-width: 700px;
+      margin: 10px auto 0;
+      color: #444;
+      line-height: 1.6;
+    }
+    .gallery {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 20px 60px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    @media (max-width: 900px) {
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 600px) {
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+    .gallery img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      display: block;
+    }
+    footer {
+      background-color: #fef7e7;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <div class="navbar">
+      <a href="index.html">
+        <img src="./assets/logo.png" alt="Logo" />
+      </a>
+      <div class="quick_links">
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About Me</a>
+        <a href="blog.html">Blog</a>
+        <a href="photography.html">Photography</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="herosection">
+      <h1>Photography</h1>
+      <p>
+        A collection of shots from photography, videography and astrophotography
+        &mdash; capturing school events, the night sky and everything in
+        between.
+      </p>
+    </div>
+    <div class="gallery">
+      <img src="./assets/photography/1.jpg" alt="Photography shot 1" />
+      <img src="./assets/photography/2.jpg" alt="Photography shot 2" />
+      <img src="./assets/photography/3.jpg" alt="Photography shot 3" />
+      <img src="./assets/photography/4.jpg" alt="Photography shot 4" />
+      <img
+        src="./assets/photography/20240806_150440.jpg"
+        alt="Photography shot 5"
+      />
+      <img
+        src="./assets/photography/20241221_141242.jpg"
+        alt="Photography shot 6"
+      />
+      <img
+        src="./assets/photography/20250504_161335.jpg"
+        alt="Photography shot 7"
+      />
+      <img
+        src="./assets/photography/20251201_060904.jpg"
+        alt="Photography shot 8"
+      />
+      <img
+        src="./assets/photography/IMG-20240718-WA0024.jpg"
+        alt="Photography shot 9"
+      />
+      <img
+        src="./assets/photography/IMG-20240806-WA0033.jpg"
+        alt="Photography shot 10"
+      />
+      <img
+        src="./assets/photography/IMG-20251105-WA0019-EDIT.jpg"
+        alt="Photography shot 11"
+      />
+      <img
+        src="./assets/photography/IMG-20251201-WA0016.jpg"
+        alt="Photography shot 12"
+      />
+      <img
+        src="./assets/photography/IMG-20251201-WA0027.jpg"
+        alt="Photography shot 13"
+      />
+      <img
+        src="./assets/photography/20260406_100029-EDIT.jpg"
+        alt="Photography shot 14"
+      />
+      <img
+        src="./assets/photography/20260409_174228.jpg"
+        alt="Photography shot 15"
+      />
+      <img
+        src="./assets/photography/20260410_124431.jpg"
+        alt="Photography shot 16"
+      />
+      <img
+        src="./assets/photography/20260418_181434.jpg"
+        alt="Photography shot 17"
+      />
+      <img
+        src="./assets/photography/20260713_165840-EDIT.jpg"
+        alt="Photography shot 18"
+      />
+      <img
+        src="./assets/photography/IMG_20260409_212627_866.png"
+        alt="Photography shot 19"
+      />
+      <img
+        src="./assets/photography/IMG_20260410_125024_288.webp"
+        alt="Photography shot 20"
+      />
+    </div>
+    <footer>
+      <p>&copy; 2026 &lt;amankauroo/&gt;</p>
+    </footer>
+  </body>
+  <script></script>
+</html>

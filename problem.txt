@@ -1,0 +1,37 @@
+First of all, welcome back to the University of Mauritius, and a warm welcome to all our new members joining the Oracle family this academic year. We hope you're all ready for another year of learning, building, and creating amazing projects together.
+To get everyone started, we'd like to give you a small introductory assignment that will also help us understand your current frontend development skills.
+
+Assignment: Create a Personal Static Website
+
+Build a simple static website about yourself. This is your opportunity to introduce who you are and showcase your creativity.
+Your website should include:
+
+•⁠  ⁠A short introduction about yourself
+•⁠  ⁠Your academic background
+•⁠  ⁠Your journey so far (school, university, projects, achievements, experiences, interests, etc.)
+•⁠  ⁠Your goals or aspirations
+•⁠  ⁠Anything else you think represents you
+
+Guidelines
+
+•⁠  ⁠You may use any frontend language, library, or framework of your choice (HTML/CSS/JavaScript, React, Vue, Angular, Next.js, etc.).
+•⁠  ⁠This is a frontend-only assignment. No backend or database is required.
+•⁠  ⁠The use of AI tools is permitted.
+•⁠  ⁠Feel free to be as creative as you like. We encourage good UI/UX, responsive design, and clean code.
+
+This isn't about building something complex. We simply want to get to know you better while seeing your approach to frontend development.
+Have fun with it, and we look forward to seeing what you create. Good luck, and once again, welcome to Oracle!
+
+Note: This is to evaluate your skills and know where you are situated you can use AI yes but you must also understand what AI is giving to you to be able to edit and make it in your way
+The website or app should not be deployed it can be on localhost to run and only to present
+
+For those wanting to learn:
+There are several AI you can use
+Best is Claude but there is limit restriction  and you must pay to remove the restriction
+For knowledge and explantion ChatGpt is best but rarely use it to get codes
+Deepseek is free and also provides codes when the free usage or usage of.claude is finished you can switch to Deepseek and contiue asking for corrections or full codes
+
+It is compulsory to participate in everything as these will help in your academics and also show your involvement towards the club
+
+Submission Wednesday 5 Aug 2026
+Presentation Thursday 6 Aug 2026

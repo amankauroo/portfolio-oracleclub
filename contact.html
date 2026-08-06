@@ -1,0 +1,260 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact me</title>
+  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fef7e7;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .navbar {
+      background-color: #f9e1ae;
+      padding: 0px;
+      margin: 0px;
+      overflow: hidden;
+      display: flex;
+      border-radius: 0px 0px 15px 15px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar img {
+      float: left;
+      width: 50px;
+      height: 50px;
+      margin-top: 10px;
+      margin-left: 20px;
+      margin-bottom: 10px;
+      border-radius: 15px;
+      display: block;
+    }
+    .quick_links {
+      display: flex;
+      gap: 30px;
+      margin-right: 1rem;
+    }
+    .quick_links a {
+      background-color: #29a7f5;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      color: white;
+      text-decoration: none;
+      padding: 14px 16px;
+      display: block;
+    }
+    .quick_links a:hover {
+      background-color: #1e90ff;
+    }
+    @media (max-width: 700px) {
+      .navbar {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding: 8px 10px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navbar img {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        margin: 0 10px 0 0;
+      }
+      .quick_links {
+        flex-wrap: nowrap;
+        gap: 8px;
+        margin-right: 0;
+      }
+      .quick_links a {
+        flex-shrink: 0;
+        white-space: nowrap;
+        padding: 8px 12px;
+        font-size: 0.85rem;
+      }
+    }
+    .herosection {
+      text-align: center;
+      padding: 60px 20px 30px;
+    }
+    .herosection p {
+      max-width: 600px;
+      margin: 10px auto 0;
+      color: #444;
+    }
+    .contact_wrapper {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px 20px 60px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    @media (max-width: 700px) {
+      .contact_wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+    .contact_info {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .contact_info .card {
+      text-align: left;
+    }
+    .card {
+      background-color: #f9e1ae;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    .card h3 {
+      margin-top: 0;
+    }
+    .card a {
+      color: #1e6fb0;
+    }
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      margin: 0;
+    }
+    .social-icons img {
+      width: 34px;
+      height: 34px;
+    }
+    .social-icons a:hover {
+      opacity: 0.7;
+    }
+    .contact_form {
+      background-color: #f9e1ae;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .contact_form label {
+      font-weight: bold;
+      margin-bottom: -10px;
+    }
+    .contact_form input,
+    .contact_form textarea {
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+    .contact_form button {
+      background-color: #29a7f5;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      color: white;
+      border: none;
+      text-decoration: none;
+      padding: 12px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .contact_form button:hover {
+      background-color: #1e90ff;
+    }
+    footer {
+      background-color: #fef7e7;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <div class="navbar">
+      <a href="index.html">
+        <img src="./assets/logo.png" alt="Logo" />
+      </a>
+      <div class="quick_links">
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About Me</a>
+        <a href="blog.html">Blog</a>
+        <a href="photography.html">Photography</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="herosection">
+      <h1>Get In Touch</h1>
+      <p>
+        Have a question or want to work together? Reach out through any of the
+        channels below.
+      </p>
+    </div>
+    <div class="contact_wrapper">
+      <div class="contact_info">
+        <div class="card">
+          <h3>Email</h3>
+          <p>
+            <a href="mailto:aman.kauroo@umail.uom.ac.mu"
+              >aman.kauroo@umail.uom.ac.mu</a
+            >
+          </p>
+        </div>
+        <div class="card">
+          <h3>Phone</h3>
+          <p>58582189</p>
+        </div>
+        <div class="card">
+          <h3>Social</h3>
+          <div class="social-icons">
+            <a
+              href="https://github.com/amankauroo"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src="./assets/github.png" alt="GitHub" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/amankauroo/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src="./assets/linkedin.png" alt="LinkedIn" />
+            </a>
+            <a
+              href="https://www.instagram.com/codebynasrdeen"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src="./assets/instagram.png" alt="Instagram" />
+            </a>
+          </div>
+        </div>
+      </div>
+      <form
+        class="contact_form"
+        action="mailto:aman.kauroo@umail.uom.ac.mu"
+        method="post"
+        enctype="text/plain"
+      >
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required />
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+    <footer>
+      <p>&copy; 2026 &lt;amankauroo/&gt;</p>
+    </footer>
+  </body>
+  <script></script>
+</html>
