@@ -1,0 +1,1803 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gmail Signature Builder</title>
+    <meta
+      name="description"
+      content="Design, preview and copy a professional Gmail signature. Fully editable layout, contact details, social links, colours and fonts."
+    />
+    <meta name="author" content="Aman Kauroo" />
+    <link rel="icon" type="image/x-icon" href="/assets/logo.png" />
+  </head>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fef7e7;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: #222;
+    }
+
+    /* ---------- Navbar (shared with the rest of the site) ---------- */
+    .navbar {
+      background-color: #f9e1ae;
+      padding: 0px;
+      margin: 0px;
+      overflow: hidden;
+      display: flex;
+      border-radius: 0px 0px 15px 15px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar img {
+      float: left;
+      width: 50px;
+      height: 50px;
+      margin: 10px 0 10px 20px;
+      border-radius: 15px;
+      display: block;
+    }
+    .quick_links {
+      display: flex;
+      gap: 30px;
+      margin-right: 1rem;
+    }
+    .quick_links a {
+      background-color: #29a7f5;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      color: white;
+      text-decoration: none;
+      padding: 14px 16px;
+      display: block;
+    }
+    .quick_links a:hover {
+      background-color: #1e90ff;
+    }
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      line-height: 1;
+      cursor: pointer;
+      margin-right: 20px;
+      color: #333;
+    }
+    @media (max-width: 700px) {
+      .navbar {
+        flex-wrap: wrap;
+        padding: 5px 0;
+      }
+      .navbar img {
+        width: 40px;
+        height: 40px;
+        margin: 8px 0 8px 15px;
+      }
+      .nav-toggle {
+        display: block;
+      }
+      .quick_links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+        margin: 0;
+        padding: 0 15px 15px;
+      }
+      .quick_links.open {
+        display: flex;
+      }
+      .quick_links a {
+        margin: 6px 0;
+        text-align: center;
+        padding: 12px 16px;
+      }
+    }
+
+    /* ---------- Page ---------- */
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 40px 20px 50px;
+    }
+    .hero {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .hero h1 {
+      margin: 0 0 6px;
+    }
+    .hero p {
+      margin: 0 auto;
+      max-width: 640px;
+      color: #555;
+      line-height: 1.5;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(340px, 500px) minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 1000px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background-color: #f9e1ae;
+      border-radius: 15px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ---------- Editor ---------- */
+    .editor {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    details.section > summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 14px 20px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 15px;
+    }
+    details.section > summary::-webkit-details-marker {
+      display: none;
+    }
+    details.section > summary::after {
+      content: "\25BE";
+      transition: transform 0.15s;
+    }
+    details.section[open] > summary::after {
+      transform: rotate(180deg);
+    }
+    details.section > summary:focus-visible {
+      outline: 3px solid #29a7f5;
+    }
+    .section-body {
+      padding: 4px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .grid2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 520px) {
+      .grid2 {
+        grid-template-columns: 1fr;
+      }
+    }
+    .f {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      min-width: 0;
+    }
+    .f > span b {
+      font-weight: normal;
+      color: #555;
+    }
+    .hint {
+      font-size: 0.8rem;
+      color: #5c5233;
+      line-height: 1.4;
+      margin: 0;
+    }
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      font: inherit;
+      font-size: 0.9rem;
+      font-weight: normal;
+      padding: 9px 11px;
+      background: #fff;
+      border: 1px solid #d9bd7e;
+      border-radius: 10px;
+      color: #222;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 70px;
+    }
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: 3px solid rgba(41, 167, 245, 0.45);
+      border-color: #29a7f5;
+    }
+    input[type="range"] {
+      width: 100%;
+      accent-color: #29a7f5;
+    }
+    input[type="color"] {
+      width: 100%;
+      height: 38px;
+      padding: 3px;
+      background: #fff;
+      border: 1px solid #d9bd7e;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .switch {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .switch input {
+      width: 18px;
+      height: 18px;
+      accent-color: #29a7f5;
+      margin: 0;
+    }
+    .sub {
+      font-size: 0.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #5c5233;
+      margin: 8px 0 0;
+      padding-top: 10px;
+      border-top: 1px dashed #d9bd7e;
+    }
+    .sub:first-child {
+      border-top: 0;
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    /* Buttons */
+    .btn {
+      background-color: #29a7f5;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      color: white;
+      border: 0;
+      font: inherit;
+      font-size: 0.9rem;
+      text-decoration: none;
+      padding: 10px 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #1e90ff;
+    }
+    .btn.alt {
+      background: #fff;
+      color: #222;
+      border: 1px solid #d9bd7e;
+      box-shadow: none;
+    }
+    .btn.alt:hover {
+      background: #fff6dc;
+    }
+    .btn.danger {
+      color: #b3261e;
+    }
+    .btn.small {
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      box-shadow: none;
+    }
+    .btn:focus-visible,
+    .seg button:focus-visible,
+    .layouts button:focus-visible {
+      outline: 3px solid #1e90ff;
+      outline-offset: 2px;
+    }
+
+    /* Segmented control */
+    .seg {
+      display: flex;
+      background: #fff;
+      border: 1px solid #d9bd7e;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .seg button {
+      flex: 1;
+      font: inherit;
+      font-size: 0.85rem;
+      padding: 8px 6px;
+      background: transparent;
+      border: 0;
+      border-right: 1px solid #ecd9ab;
+      cursor: pointer;
+      color: #333;
+    }
+    .seg button:last-child {
+      border-right: 0;
+    }
+    .seg button:hover {
+      background: #fff6dc;
+    }
+    .seg button.on {
+      background: #29a7f5;
+      color: #fff;
+    }
+
+    /* Layout picker */
+    .layouts {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .layouts button {
+      font: inherit;
+      text-align: left;
+      background: #fff;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      padding: 10px 12px;
+      cursor: pointer;
+      color: #222;
+    }
+    .layouts button:hover {
+      background: #fff6dc;
+    }
+    .layouts button.on {
+      border-color: #29a7f5;
+    }
+    .layouts b {
+      display: block;
+      font-size: 0.9rem;
+    }
+    .layouts small {
+      color: #666;
+      font-size: 0.78rem;
+    }
+
+    /* Image field */
+    .imgfield {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .imgfield input[type="text"] {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* Dynamic list items */
+    .items {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .item {
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid #e3c98c;
+      border-radius: 12px;
+      padding: 10px;
+    }
+    .item-row {
+      display: grid;
+      grid-template-columns: 110px 1fr auto;
+      gap: 8px;
+      align-items: center;
+    }
+    .item-row.wide {
+      grid-template-columns: 1fr auto;
+    }
+    .mini {
+      display: flex;
+      gap: 4px;
+    }
+    .mini button {
+      width: 30px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid #d9bd7e;
+      background: #fff;
+      cursor: pointer;
+      font: inherit;
+    }
+    .mini button:hover {
+      background: #fff6dc;
+    }
+    .mini button.del {
+      color: #b3261e;
+    }
+    .item details {
+      margin-top: 8px;
+    }
+    .item summary {
+      font-size: 0.8rem;
+      cursor: pointer;
+      color: #5c5233;
+      font-weight: bold;
+    }
+    .item .more {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (max-width: 520px) {
+      .item-row {
+        grid-template-columns: 1fr auto;
+      }
+      .item-row select {
+        grid-column: 1 / -1;
+      }
+    }
+
+    /* ---------- Preview ---------- */
+    .side {
+      position: sticky;
+      top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-height: calc(100vh - 32px);
+      overflow-y: auto;
+      padding: 4px 6px 8px 4px;
+      margin: -4px -6px -8px -4px;
+    }
+    @media (max-width: 1000px) {
+      .side {
+        position: static;
+        max-height: none;
+        overflow: visible;
+      }
+    }
+    .panel {
+      padding: 18px 20px;
+    }
+    .panel h2 {
+      margin: 0 0 12px;
+      font-size: 1.05rem;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .view-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .view-controls .seg {
+      min-width: 190px;
+      flex: 1;
+    }
+    .stage {
+      border-radius: 12px;
+      border: 1px solid #d9bd7e;
+      padding: 24px;
+      overflow-x: auto;
+      transition: background 0.15s;
+    }
+    .stage.light {
+      background: #fff;
+    }
+    .stage.dark {
+      background: #202124;
+    }
+    .stage.mobile .mount {
+      width: 340px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    .mount a {
+      cursor: default;
+    }
+    .checks {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.88rem;
+    }
+    .checks li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      line-height: 1.4;
+    }
+    .checks .dot {
+      flex: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      margin-top: 1px;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .dot.ok {
+      background: #1a7f37;
+    }
+    .dot.warn {
+      background: #d98200;
+    }
+    .dot.bad {
+      background: #b3261e;
+    }
+    .meter {
+      height: 8px;
+      border-radius: 6px;
+      background: #fff;
+      border: 1px solid #d9bd7e;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+    .meter i {
+      display: block;
+      height: 100%;
+      background: #29a7f5;
+      width: 0;
+    }
+    .meter i.warn {
+      background: #d98200;
+    }
+    .meter i.bad {
+      background: #b3261e;
+    }
+    ol.steps {
+      margin: 0;
+      padding-left: 20px;
+      line-height: 1.6;
+      font-size: 0.9rem;
+    }
+    details.src summary {
+      cursor: pointer;
+      font-weight: bold;
+    }
+    details.src textarea {
+      margin-top: 10px;
+      min-height: 180px;
+      font-family: Menlo, Consolas, monospace;
+      font-size: 0.78rem;
+    }
+
+    #toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translate(-50%, 20px);
+      background: #222;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+      z-index: 50;
+      max-width: 90vw;
+      font-size: 0.9rem;
+    }
+    #toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    footer {
+      background-color: #f9e1ae;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <div class="navbar">
+      <a href="../index.html">
+        <img src="../assets/logo.png" alt="Logo" />
+      </a>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+      >
+        &#9776;
+      </button>
+      <div class="quick_links">
+        <a href="../projects.html">Projects</a>
+        <a href="../about.html">About Me</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../photography.html">Photography</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+    </div>
+
+    <main>
+      <div class="hero">
+        <h1>Gmail Signature Builder</h1>
+        <p>
+          Design a professional email signature, preview it live, then copy it
+          straight into Gmail. Everything is editable and saved in this browser.
+        </p>
+      </div>
+
+      <div class="layout">
+        <!-- ================= EDITOR ================= -->
+        <div class="editor">
+          <details class="card section" open>
+            <summary>Layout</summary>
+            <div class="section-body">
+              <div class="layouts" data-seg="layout">
+                <button type="button" data-v="classic">
+                  <b>Classic</b><small>Photo and name left, details right</small>
+                </button>
+                <button type="button" data-v="horizontal">
+                  <b>Horizontal</b><small>Photo left, all text right</small>
+                </button>
+                <button type="button" data-v="stacked">
+                  <b>Stacked</b><small>Single column, top to bottom</small>
+                </button>
+                <button type="button" data-v="minimal">
+                  <b>Minimal</b><small>Text only, no photo</small>
+                </button>
+              </div>
+            </div>
+          </details>
+
+          <details class="card section" open>
+            <summary>Identity</summary>
+            <div class="section-body">
+              <label class="f"><span>Full name</span><input type="text" data-k="identity.name" /></label>
+              <div class="grid2">
+                <label class="f"><span>Title / programme</span><input type="text" data-k="identity.title" /></label>
+                <label class="f"><span>Company / organisation</span><input type="text" data-k="identity.company" /></label>
+              </div>
+              <div class="grid2">
+                <label class="f"><span>Pronouns</span><input type="text" data-k="identity.pronouns" placeholder="he/him" /></label>
+                <label class="f"><span>Tagline</span><input type="text" data-k="identity.tagline" /></label>
+              </div>
+            </div>
+          </details>
+
+          <details class="card section">
+            <summary>Images</summary>
+            <div class="section-body">
+              <p class="hint">
+                Gmail only displays images that are hosted online. Paste a public
+                image URL, or upload a file to preview it (uploads are not visible to
+                recipients until hosted).
+              </p>
+
+              <label class="switch"><input type="checkbox" data-k="style.darkSafe" />Dark-mode-safe default images</label>
+              <p class="hint">
+                Gmail's dark mode (notably on Android) can invert images, turning black icons white and photos into negatives.
+                This swaps the bundled images for versions that read correctly either way (blue icons, slate script, tinted photo).
+                Upload the <code>-dm.png</code> files from <code>assets/gmail_signature</code> to your host too.
+              </p>
+
+              <p class="sub">Name script image</p>
+              <label class="switch"><input type="checkbox" data-k="script.enabled" />Show</label>
+              <div data-imgfield="script.src"></div>
+              <label class="f"><span>Width <b data-val="script.width"></b>px</span><input type="range" min="100" max="500" data-k="script.width" /></label>
+
+              <p class="sub">Photo</p>
+              <label class="switch"><input type="checkbox" data-k="photo.enabled" />Show</label>
+              <div data-imgfield="photo.src"></div>
+              <div class="grid2">
+                <label class="f"><span>Size <b data-val="photo.size"></b>px</span><input type="range" min="40" max="180" data-k="photo.size" /></label>
+                <div class="f">
+                  <span>Shape</span>
+                  <div class="seg" data-seg="photo.shape">
+                    <button type="button" data-v="circle">Circle</button>
+                    <button type="button" data-v="rounded">Rounded</button>
+                    <button type="button" data-v="square">Square</button>
+                  </div>
+                </div>
+              </div>
+
+              <p class="sub">Logo</p>
+              <label class="switch"><input type="checkbox" data-k="logo.enabled" />Show</label>
+              <div data-imgfield="logo.src"></div>
+              <div class="grid2">
+                <label class="f"><span>Width <b data-val="logo.width"></b>px</span><input type="range" min="30" max="300" data-k="logo.width" /></label>
+                <label class="f"><span>Link (optional)</span><input type="text" data-k="logo.url" placeholder="https://" /></label>
+              </div>
+
+              <p class="sub">Banner</p>
+              <label class="switch"><input type="checkbox" data-k="banner.enabled" />Show</label>
+              <div data-imgfield="banner.src"></div>
+              <div class="grid2">
+                <label class="f"><span>Width <b data-val="banner.width"></b>px</span><input type="range" min="150" max="600" data-k="banner.width" /></label>
+                <label class="f"><span>Link (optional)</span><input type="text" data-k="banner.url" placeholder="https://" /></label>
+              </div>
+            </div>
+          </details>
+
+          <details class="card section" open>
+            <summary>Contact details</summary>
+            <div class="section-body">
+              <div class="items" id="list-contacts"></div>
+              <button type="button" class="btn alt small" data-add="contacts">+ Add contact line</button>
+              <p class="hint">Phone, email and website links are generated automatically. Use "More options" to override the link, label or icon.</p>
+            </div>
+          </details>
+
+          <details class="card section" open>
+            <summary>Social links</summary>
+            <div class="section-body">
+              <div class="items" id="list-socials"></div>
+              <button type="button" class="btn alt small" data-add="socials">+ Add social link</button>
+            </div>
+          </details>
+
+          <details class="card section">
+            <summary>Extra text lines</summary>
+            <div class="section-body">
+              <div class="items" id="list-extras"></div>
+              <button type="button" class="btn alt small" data-add="extras">+ Add text line</button>
+              <p class="hint">Use for office hours, a pitch, a quote, a meeting link and so on.</p>
+            </div>
+          </details>
+
+          <details class="card section">
+            <summary>Button and footer</summary>
+            <div class="section-body">
+              <p class="sub">Call-to-action button</p>
+              <label class="switch"><input type="checkbox" data-k="cta.enabled" />Show</label>
+              <div class="grid2">
+                <label class="f"><span>Text</span><input type="text" data-k="cta.text" /></label>
+                <label class="f"><span>Link</span><input type="text" data-k="cta.url" placeholder="https://" /></label>
+              </div>
+              <div class="grid2">
+                <label class="f"><span>Background</span><input type="color" data-k="cta.bg" /></label>
+                <label class="f"><span>Text colour</span><input type="color" data-k="cta.color" /></label>
+              </div>
+              <label class="f"><span>Corner radius <b data-val="cta.radius"></b>px</span><input type="range" min="0" max="30" data-k="cta.radius" /></label>
+
+              <p class="sub">Disclaimer</p>
+              <label class="switch"><input type="checkbox" data-k="disclaimer.enabled" />Show</label>
+              <label class="f"><span>Text</span><textarea data-k="disclaimer.text"></textarea></label>
+              <label class="f"><span>Font size <b data-val="disclaimer.size"></b>px</span><input type="range" min="9" max="14" data-k="disclaimer.size" /></label>
+            </div>
+          </details>
+
+          <details class="card section">
+            <summary>Typography and colours</summary>
+            <div class="section-body">
+              <div class="grid2">
+                <label class="f"><span>Body font</span><select data-k="style.font" data-fonts></select></label>
+                <label class="f"><span>Name font</span><select data-k="style.nameFont" data-fonts></select></label>
+              </div>
+              <div class="grid2">
+                <label class="f"><span>Body size <b data-val="style.bodySize"></b>px</span><input type="range" min="11" max="18" data-k="style.bodySize" /></label>
+                <label class="f"><span>Title size <b data-val="style.titleSize"></b>px</span><input type="range" min="11" max="18" data-k="style.titleSize" /></label>
+              </div>
+              <div class="grid2">
+                <label class="f"><span>Name size <b data-val="style.nameSize"></b>px</span><input type="range" min="12" max="30" data-k="style.nameSize" /></label>
+                <label class="f"><span>Name weight</span>
+                  <select data-k="style.nameWeight"><option value="normal">Regular</option><option value="bold">Bold</option></select>
+                </label>
+              </div>
+              <label class="switch"><input type="checkbox" data-k="style.nameUpper" />Uppercase name</label>
+              <label class="switch"><input type="checkbox" data-k="style.underline" />Underline links</label>
+              <div class="grid2">
+                <label class="f"><span>Name colour</span><input type="color" data-k="style.nameColor" /></label>
+                <label class="f"><span>Title colour</span><input type="color" data-k="style.titleColor" /></label>
+                <label class="f"><span>Text colour</span><input type="color" data-k="style.textColor" /></label>
+                <label class="f"><span>Link colour</span><input type="color" data-k="style.linkColor" /></label>
+                <label class="f"><span>Accent colour</span><input type="color" data-k="style.accent" /></label>
+                <label class="f"><span>Muted colour</span><input type="color" data-k="style.mutedColor" /></label>
+              </div>
+            </div>
+          </details>
+
+          <details class="card section">
+            <summary>Spacing, icons and dividers</summary>
+            <div class="section-body">
+              <p class="sub">Icons</p>
+              <div class="f">
+                <span>Contact icons</span>
+                <div class="seg" data-seg="style.iconMode">
+                  <button type="button" data-v="image">Images</button>
+                  <button type="button" data-v="text">Text labels</button>
+                  <button type="button" data-v="none">None</button>
+                </div>
+              </div>
+              <div class="f">
+                <span>Social links</span>
+                <div class="seg" data-seg="style.socialMode">
+                  <button type="button" data-v="icons">Icons</button>
+                  <button type="button" data-v="text">Text links</button>
+                </div>
+              </div>
+              <div class="grid2">
+                <label class="f"><span>Contact icon <b data-val="style.iconSize"></b>px</span><input type="range" min="14" max="36" data-k="style.iconSize" /></label>
+                <label class="f"><span>Social icon <b data-val="style.socialSize"></b>px</span><input type="range" min="16" max="40" data-k="style.socialSize" /></label>
+              </div>
+
+              <p class="sub">Divider</p>
+              <label class="switch"><input type="checkbox" data-k="style.dividerShow" />Show divider</label>
+              <div class="f">
+                <span>Style</span>
+                <div class="seg" data-seg="style.dividerStyle">
+                  <button type="button" data-v="solid">Solid</button>
+                  <button type="button" data-v="dashed">Dashed</button>
+                  <button type="button" data-v="dotted">Dotted</button>
+                </div>
+              </div>
+              <div class="grid2">
+                <label class="f"><span>Colour</span><input type="color" data-k="style.dividerColor" /></label>
+                <label class="f"><span>Thickness <b data-val="style.dividerWidth"></b>px</span><input type="range" min="1" max="6" data-k="style.dividerWidth" /></label>
+              </div>
+
+              <p class="sub">Spacing</p>
+              <div class="grid2">
+                <label class="f"><span>Column gap <b data-val="style.colGap"></b>px</span><input type="range" min="6" max="48" data-k="style.colGap" /></label>
+                <label class="f"><span>Line gap <b data-val="style.rowGap"></b>px</span><input type="range" min="2" max="28" data-k="style.rowGap" /></label>
+                <label class="f"><span>Block gap <b data-val="style.blockGap"></b>px</span><input type="range" min="2" max="30" data-k="style.blockGap" /></label>
+                <label class="f"><span>Social gap <b data-val="style.socialGap"></b>px</span><input type="range" min="4" max="30" data-k="style.socialGap" /></label>
+              </div>
+            </div>
+          </details>
+
+          <details class="card section">
+            <summary>Advanced</summary>
+            <div class="section-body">
+              <label class="f">
+                <span>Image host base URL (optional)</span>
+                <input type="text" data-k="settings.imageBase" placeholder="https://example.com/signature/images/" />
+              </label>
+              <p class="hint">
+                When set, every relative image (such as the default files in
+                <code>assets/gmail_signature</code>) is rewritten to
+                <code>base + filename</code>. Full URLs are left untouched.
+              </p>
+            </div>
+          </details>
+        </div>
+
+        <!-- ================= PREVIEW ================= -->
+        <div class="side">
+          <div class="card panel">
+            <h2>Preview</h2>
+            <div class="view-controls">
+              <div class="seg" data-seg="ui.view" aria-label="Preview width">
+                <button type="button" data-v="desktop">Desktop</button>
+                <button type="button" data-v="mobile">Mobile</button>
+              </div>
+              <div class="seg" data-seg="ui.theme" aria-label="Preview background">
+                <button type="button" data-v="light">Light</button>
+                <button type="button" data-v="dark">Dark</button>
+              </div>
+            </div>
+            <div class="stage light" id="stage">
+              <div class="mount" id="mount"></div>
+            </div>
+          </div>
+
+          <div class="card panel">
+            <h2>Export</h2>
+            <div class="actions">
+              <button type="button" class="btn" id="copy-rich">Copy signature</button>
+              <button type="button" class="btn alt" id="copy-html">Copy HTML</button>
+              <button type="button" class="btn alt" id="download">Download .html</button>
+              <button type="button" class="btn alt" id="export-json">Export design</button>
+              <label class="btn alt" for="import-json">Import design</label>
+              <input type="file" id="import-json" accept="application/json,.json" hidden />
+              <button type="button" class="btn alt danger" id="reset">Reset</button>
+            </div>
+          </div>
+
+          <div class="card panel">
+            <h2>Pre-flight check</h2>
+            <ul class="checks" id="checks"></ul>
+            <div class="meter" aria-hidden="true"><i id="meter"></i></div>
+          </div>
+
+          <div class="card panel">
+            <h2>Add it to Gmail</h2>
+            <ol class="steps">
+              <li>Make sure every image uses a public URL (see the check above).</li>
+              <li>Click <b>Copy signature</b>.</li>
+              <li>In Gmail open Settings, See all settings, General, Signature, then create a new signature.</li>
+              <li>Paste into the box (Ctrl+V or Cmd+V) and click <b>Save Changes</b>.</li>
+            </ol>
+          </div>
+
+          <div class="card panel">
+            <details class="src">
+              <summary>HTML source</summary>
+              <textarea id="source" readonly spellcheck="false"></textarea>
+            </details>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <footer>
+      <p>&copy; 2026 &lt;amankauroo/&gt;</p>
+    </footer>
+  </body>
+  <script>
+    const navToggle = document.querySelector(".nav-toggle");
+    const quickLinks = document.querySelector(".quick_links");
+    navToggle.addEventListener("click", () => {
+      const isOpen = quickLinks.classList.toggle("open");
+      navToggle.setAttribute("aria-expanded", isOpen);
+    });
+
+    /* ====================== Constants ====================== */
+    const STORE_KEY = "gmailSignatureBuilder.v1";
+    const GMAIL_LIMIT = 10000;
+    const ASSET_DIR = "../assets/gmail_signature/";
+
+    const FONTS = {
+      Georgia: "Georgia, 'Times New Roman', serif",
+      Arial: "Arial, Helvetica, sans-serif",
+      Verdana: "Verdana, Geneva, sans-serif",
+      Tahoma: "Tahoma, Geneva, sans-serif",
+      "Trebuchet MS": "'Trebuchet MS', Helvetica, sans-serif",
+      "Times New Roman": "'Times New Roman', Times, serif",
+      Garamond: "Garamond, Georgia, serif",
+      "Courier New": "'Courier New', Courier, monospace",
+    };
+
+    const CONTACT_TYPES = {
+      phone: { name: "Phone", label: "T", icon: ASSET_DIR + "phone.png", ph: "+230 5xxx xxxx" },
+      email: { name: "Email", label: "E", icon: ASSET_DIR + "mail.png", ph: "name@example.com" },
+      web: { name: "Website", label: "W", icon: ASSET_DIR + "web.png", ph: "www.example.com" },
+      address: { name: "Address", label: "A", icon: "", ph: "Street, City" },
+      custom: { name: "Custom", label: "", icon: "", ph: "Any text" },
+    };
+
+    const PLATFORMS = {
+      instagram: { name: "Instagram", icon: ASSET_DIR + "instagram.png" },
+      linkedin: { name: "LinkedIn", icon: ASSET_DIR + "linkedin.png" },
+      github: { name: "GitHub", icon: ASSET_DIR + "github.png" },
+      x: { name: "X", icon: "" },
+      facebook: { name: "Facebook", icon: "" },
+      youtube: { name: "YouTube", icon: "" },
+      tiktok: { name: "TikTok", icon: "" },
+      whatsapp: { name: "WhatsApp", icon: "" },
+      behance: { name: "Behance", icon: "" },
+      dribbble: { name: "Dribbble", icon: "" },
+      medium: { name: "Medium", icon: "" },
+      website: { name: "Website", icon: "" },
+      other: { name: "Other", icon: "" },
+    };
+
+    const DEFAULT_STATE = {
+      layout: "classic",
+      script: { enabled: true, src: ASSET_DIR + "name-script.png", width: 300 },
+      photo: { enabled: true, src: ASSET_DIR + "photo.png", size: 90, shape: "circle" },
+      logo: { enabled: false, src: "", width: 120, url: "" },
+      banner: { enabled: false, src: "", width: 400, url: "" },
+      identity: {
+        name: "Aman Nasrdeen Wazhir KAUROO",
+        title: "BSc (Hons) Computer Science Level 1",
+        company: "",
+        pronouns: "",
+        tagline: "",
+      },
+      contacts: [
+        { type: "phone", text: "+230 5858 2189", href: "", label: "", icon: "" },
+        { type: "email", text: "aman.kauroo@umail.uom.ac.mu", href: "", label: "", icon: "" },
+        { type: "web", text: "www.amankauroo.com", href: "https://amankauroo.com", label: "", icon: "" },
+      ],
+      socials: [
+        { platform: "instagram", url: "https://www.instagram.com/amankauroo/", label: "", icon: "" },
+        { platform: "linkedin", url: "https://www.linkedin.com/in/amankauroo/", label: "", icon: "" },
+        { platform: "github", url: "https://github.com/amankauroo/", label: "", icon: "" },
+      ],
+      extras: [],
+      cta: { enabled: false, text: "Book a meeting", url: "", bg: "#29a7f5", color: "#ffffff", radius: 15 },
+      disclaimer: {
+        enabled: false,
+        text: "This email and any attachments are confidential and intended solely for the addressee. If you received it in error, please notify the sender and delete it.",
+        size: 11,
+      },
+      style: {
+        font: "Georgia",
+        nameFont: "Arial",
+        bodySize: 14,
+        titleSize: 14,
+        nameSize: 16,
+        nameWeight: "bold",
+        nameUpper: false,
+        underline: true,
+        nameColor: "#000000",
+        titleColor: "#000000",
+        textColor: "#000000",
+        linkColor: "#000000",
+        accent: "#0a66c2",
+        mutedColor: "#666666",
+        darkSafe: true,
+        iconMode: "image",
+        socialMode: "icons",
+        iconSize: 22,
+        socialSize: 24,
+        dividerShow: true,
+        dividerStyle: "solid",
+        dividerColor: "#b3b3b3",
+        dividerWidth: 2,
+        colGap: 20,
+        rowGap: 14,
+        blockGap: 10,
+        socialGap: 18,
+      },
+      settings: { imageBase: "" },
+    };
+
+    const LIST_DEFAULTS = {
+      contacts: () => ({ type: "phone", text: "", href: "", label: "", icon: "" }),
+      socials: () => ({ platform: "website", url: "", label: "", icon: "" }),
+      extras: () => ({ text: "", url: "", bold: false, italic: false, color: "", size: 0 }),
+    };
+
+    /* ====================== State ====================== */
+    const clone = (o) => JSON.parse(JSON.stringify(o));
+    const ui = { view: "desktop", theme: "light" };
+    let state = loadState();
+
+    // Arrays and primitives are taken from `over` wholesale; objects merge key by key.
+    function merge(base, over) {
+      if (Array.isArray(base) || typeof base !== "object" || base === null) {
+        return over === undefined ? clone(base) : over;
+      }
+      const out = {};
+      for (const k of Object.keys(base)) {
+        out[k] = over && typeof over === "object" && k in over ? merge(base[k], over[k]) : clone(base[k]);
+      }
+      return out;
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORE_KEY);
+        if (raw) return merge(DEFAULT_STATE, JSON.parse(raw));
+      } catch (e) {}
+      return clone(DEFAULT_STATE);
+    }
+
+    let saveTimer;
+    function save() {
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => {
+        try {
+          localStorage.setItem(STORE_KEY, JSON.stringify(state));
+        } catch (e) {
+          toast("Could not save: browser storage is full (large uploaded images?).");
+        }
+      }, 250);
+    }
+
+    const rootOf = (p) => (p.startsWith("ui.") ? [ui, p.slice(3)] : [state, p]);
+    function getPath(p) {
+      const [o, path] = rootOf(p);
+      return path.split(".").reduce((a, k) => (a == null ? a : a[k]), o);
+    }
+    function setPath(p, v) {
+      const [o, path] = rootOf(p);
+      const ks = path.split(".");
+      const last = ks.pop();
+      ks.reduce((a, k) => a[k], o)[last] = v;
+    }
+
+    /* ====================== Helpers ====================== */
+    const esc = (s) =>
+      String(s == null ? "" : s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    const nl2br = (s) => esc(s).replace(/\r?\n/g, "<br>");
+
+    function normUrl(u) {
+      const t = String(u || "").trim();
+      if (!t) return "";
+      if (/^(https?:|mailto:|tel:|sms:)/i.test(t)) return t;
+      if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(t)) return "mailto:" + t;
+      return "https://" + t.replace(/^\/+/, "");
+    }
+
+    function resolveSrc(src) {
+      let s = String(src || "").trim();
+      if (!s) return "";
+      if (state.style.darkSafe) s = s.replace(/^(\.\.\/assets\/gmail_signature\/(?:phone|mail|web|name-script|photo))\.png$/, "$1-dm.png");
+      if (/^(data:|https?:|\/\/)/i.test(s)) return s;
+      const base = state.settings.imageBase.trim();
+      if (base) return base.replace(/\/?$/, "/") + s.split("/").pop();
+      try {
+        return new URL(s, location.href).href;
+      } catch (e) {
+        return s;
+      }
+    }
+
+    function contactHref(c) {
+      if (c.href.trim()) return normUrl(c.href);
+      if (c.type === "phone") return "tel:" + c.text.replace(/[^\d+]/g, "");
+      if (c.type === "email") return "mailto:" + c.text.trim();
+      if (c.type === "web") return normUrl(c.text);
+      return "";
+    }
+
+    /* ====================== Signature generator ====================== */
+    function build(s) {
+      const st = s.style;
+      const id = s.identity;
+      const F = FONTS[st.font] || FONTS.Georgia;
+      const NF = FONTS[st.nameFont] || F;
+      const deco = st.underline ? "underline" : "none";
+      const base = `font-family:${F};font-size:${st.bodySize}px;color:${st.textColor};line-height:1.4;`;
+      const TBL = 'cellpadding="0" cellspacing="0" border="0"';
+
+      const a = (href, inner, extra = "") =>
+        href
+          ? `<a href="${esc(href)}" target="_blank" style="color:${st.linkColor};text-decoration:${deco};${extra}">${inner}</a>`
+          : inner;
+
+      const img = (src, alt, w, h, extra = "") => {
+        const url = resolveSrc(src);
+        if (!url) return "";
+        const hAttr = h ? ` height="${h}"` : "";
+        const hStyle = h ? `height:${h}px;` : "height:auto;";
+        return `<img src="${esc(url)}" alt="${esc(alt)}" width="${w}"${hAttr} style="display:block;border:0;width:${w}px;${hStyle}${extra}">`;
+      };
+
+      // Vertical list of [html, gapAbove] blocks; empty blocks are skipped.
+      const stack = (blocks, fallbackGap = st.blockGap) => {
+        const b = blocks.filter((x) => x && x[0]);
+        if (!b.length) return "";
+        return (
+          `<table ${TBL} style="border-collapse:collapse;">` +
+          b
+            .map(
+              ([html, gap], i) =>
+                `<tr><td style="padding:${i ? (gap == null ? fallbackGap : gap) : 0}px 0 0 0;">${html}</td></tr>`
+            )
+            .join("") +
+          "</table>"
+        );
+      };
+
+      const pronounsHtml = () =>
+        id.pronouns.trim()
+          ? ` <span style="font-size:${Math.max(10, st.bodySize - 2)}px;font-weight:normal;text-transform:none;color:${st.mutedColor};">(${esc(id.pronouns)})</span>`
+          : "";
+
+      const nameLine = (pad) =>
+        id.name.trim()
+          ? `<div style="font-family:${NF};font-size:${st.nameSize}px;font-weight:${st.nameWeight};color:${st.nameColor};line-height:1.25;${st.nameUpper ? "text-transform:uppercase;" : ""}padding:0 0 ${pad}px 0;">${esc(id.name)}${pronounsHtml()}</div>`
+          : "";
+
+      /* --- Blocks --- */
+      const scriptBlock = () => (s.script.enabled ? img(s.script.src, id.name, s.script.width) : "");
+
+      const photoBlock = () => {
+        if (!s.photo.enabled) return "";
+        const r = { circle: "50%", rounded: "14px", square: "0" }[s.photo.shape] || "0";
+        return img(s.photo.src, id.name, s.photo.size, s.photo.size, `border-radius:${r};`);
+      };
+
+      const logoBlock = () => {
+        if (!s.logo.enabled) return "";
+        const html = img(s.logo.src, id.company || "Logo", s.logo.width);
+        return html ? a(normUrl(s.logo.url), html, "text-decoration:none;") : "";
+      };
+
+      const bannerBlock = () => {
+        if (!s.banner.enabled) return "";
+        const html = img(s.banner.src, "Banner", s.banner.width);
+        return html ? a(normUrl(s.banner.url), html, "text-decoration:none;") : "";
+      };
+
+      const nameBlock = () => {
+        let h = nameLine(3);
+        if (id.title.trim())
+          h += `<div style="font-family:${F};font-size:${st.titleSize}px;color:${st.titleColor};line-height:1.35;">${nl2br(id.title)}</div>`;
+        if (id.company.trim())
+          h += `<div style="font-family:${F};font-size:${st.titleSize}px;font-weight:bold;color:${st.titleColor};line-height:1.35;">${esc(id.company)}</div>`;
+        if (id.tagline.trim())
+          h += `<div style="font-family:${F};font-size:${st.bodySize}px;font-style:italic;color:${st.mutedColor};line-height:1.35;padding-top:3px;">${nl2br(id.tagline)}</div>`;
+        return h;
+      };
+
+      const extrasBlock = () => {
+        const rows = s.extras.filter((x) => x.text.trim());
+        return rows
+          .map((x) => {
+            const size = x.size ? `font-size:${x.size}px;` : "";
+            const col = x.color ? `color:${x.color};` : "";
+            const inner = a(normUrl(x.url), nl2br(x.text), col);
+            return `<div style="${base}${size}${col}${x.bold ? "font-weight:bold;" : ""}${x.italic ? "font-style:italic;" : ""}padding:0 0 3px 0;">${inner}</div>`;
+          })
+          .join("");
+      };
+
+      const contactItems = () => s.contacts.filter((c) => c.text.trim());
+
+      const contactsTable = () => {
+        const items = contactItems();
+        if (!items.length) return "";
+        const rows = items.map((c, i) => {
+          const gap = i === items.length - 1 ? 0 : st.rowGap;
+          const t = CONTACT_TYPES[c.type] || CONTACT_TYPES.custom;
+          let lead = "";
+          if (st.iconMode === "image") {
+            const src = c.icon.trim() || t.icon;
+            const inner = src ? img(src, t.name, st.iconSize, st.iconSize) : "";
+            lead = `<td valign="middle" width="${st.iconSize}" style="padding:0 10px ${gap}px 0;width:${st.iconSize}px;">${inner}</td>`;
+          } else if (st.iconMode === "text") {
+            const lab = c.label.trim() || t.label;
+            lead = `<td valign="middle" style="padding:0 10px ${gap}px 0;${base}font-weight:bold;color:${st.accent};">${esc(lab)}</td>`;
+          }
+          return `<tr>${lead}<td valign="middle" style="padding:0 0 ${gap}px 0;${base}">${a(contactHref(c), nl2br(c.text))}</td></tr>`;
+        });
+        return `<table ${TBL} style="border-collapse:collapse;">${rows.join("")}</table>`;
+      };
+
+      const sep = `<span style="color:${st.dividerColor};">&nbsp;|&nbsp;</span>`;
+
+      const contactsInline = () => {
+        const items = contactItems();
+        if (!items.length) return "";
+        const parts = items.map((c) => {
+          const t = CONTACT_TYPES[c.type] || CONTACT_TYPES.custom;
+          const lab = st.iconMode === "text" ? c.label.trim() || t.label : "";
+          const pre = lab ? `<span style="font-weight:bold;color:${st.accent};">${esc(lab)}</span>&nbsp;` : "";
+          return pre + a(contactHref(c), esc(c.text));
+        });
+        return `<div style="${base}">${parts.join(sep)}</div>`;
+      };
+
+      const socialsBlock = (forceText) => {
+        const items = s.socials.filter((x) => x.url.trim());
+        if (!items.length) return "";
+        const label = (x) => x.label.trim() || (PLATFORMS[x.platform] || PLATFORMS.other).name;
+        if (forceText || st.socialMode === "text") {
+          return `<div style="${base}">${items.map((x) => a(normUrl(x.url), esc(label(x)))).join(sep)}</div>`;
+        }
+        const cells = items.map((x, i) => {
+          const src = x.icon.trim() || (PLATFORMS[x.platform] || {}).icon || "";
+          const inner = src
+            ? img(src, label(x), st.socialSize, st.socialSize)
+            : `<span style="${base}">${esc(label(x))}</span>`;
+          const pad = i === items.length - 1 ? 0 : st.socialGap;
+          return `<td valign="middle" style="padding:0 ${pad}px 0 0;">${a(normUrl(x.url), inner, "text-decoration:none;")}</td>`;
+        });
+        return `<table ${TBL} style="border-collapse:collapse;"><tr>${cells.join("")}</tr></table>`;
+      };
+
+      const ctaBlock = () => {
+        const c = s.cta;
+        if (!c.enabled || !c.text.trim()) return "";
+        return `<table ${TBL} style="border-collapse:separate;"><tr><td bgcolor="${c.bg}" style="background-color:${c.bg};border-radius:${c.radius}px;padding:8px 16px;"><a href="${esc(normUrl(c.url) || "#")}" target="_blank" style="font-family:${F};font-size:${Math.max(12, st.bodySize - 1)}px;font-weight:bold;color:${c.color};text-decoration:none;display:inline-block;">${esc(c.text)}</a></td></tr></table>`;
+      };
+
+      const disclaimerBlock = () => {
+        const d = s.disclaimer;
+        if (!d.enabled || !d.text.trim()) return "";
+        return `<div style="font-family:${F};font-size:${d.size}px;color:${st.mutedColor};line-height:1.4;max-width:560px;">${nl2br(d.text)}</div>`;
+      };
+
+      const rule = () =>
+        `<table ${TBL} width="100%" style="border-collapse:collapse;width:100%;"><tr><td style="font-size:0;line-height:0;height:1px;border-top:${st.dividerWidth}px ${st.dividerStyle} ${st.dividerColor};">&nbsp;</td></tr></table>`;
+
+      const divider = st.dividerShow ? `border-left:${st.dividerWidth}px ${st.dividerStyle} ${st.dividerColor};` : "";
+
+      /* --- Rows shared by every layout --- */
+      const footerRows = (span) => {
+        let r = "";
+        const ban = bannerBlock();
+        const dis = disclaimerBlock();
+        if (ban) r += `<tr><td colspan="${span}" style="padding:${st.blockGap + 6}px 0 0 0;">${ban}</td></tr>`;
+        if (dis) r += `<tr><td colspan="${span}" style="padding:${st.blockGap + 6}px 0 0 0;">${dis}</td></tr>`;
+        return r;
+      };
+      const scriptRow = (span) => {
+        const sc = scriptBlock();
+        return sc ? `<tr><td colspan="${span}" style="padding:0 0 10px 0;">${sc}</td></tr>` : "";
+      };
+      const oneCol = (col) => scriptRow(1) + `<tr><td valign="top">${col}</td></tr>` + footerRows(1);
+
+      const twoCols = (left, right, padTop) => {
+        const span = right ? 2 : 1;
+        const leftTd = `<td valign="top" style="padding:${padTop}px ${right ? st.colGap : 0}px 0 0;">${left}</td>`;
+        const rightTd = right
+          ? `<td valign="top" style="padding:${padTop}px 0 0 ${st.colGap}px;${divider}">${right}</td>`
+          : "";
+        return scriptRow(span) + `<tr>${leftTd}${rightTd}</tr>` + footerRows(span);
+      };
+
+      let body = "";
+      if (s.layout === "classic") {
+        const left = stack([[photoBlock(), 0], [nameBlock(), 10], [socialsBlock(), 10]]);
+        const right = stack([[contactsTable(), 0], [extrasBlock(), 14], [ctaBlock(), 14], [logoBlock(), 14]]);
+        body = twoCols(left || "&nbsp;", right, 8);
+      } else if (s.layout === "horizontal") {
+        const left = stack([[photoBlock(), 0], [logoBlock(), 12]]);
+        const right = stack([
+          [nameBlock(), 0],
+          [contactsTable(), 12],
+          [extrasBlock(), 10],
+          [socialsBlock(), 12],
+          [ctaBlock(), 12],
+        ]);
+        body = left ? twoCols(left, right || "&nbsp;", 0) : oneCol(right);
+      } else if (s.layout === "stacked") {
+        body = oneCol(
+          stack([
+            [photoBlock(), 0],
+            [nameBlock(), 10],
+            [contactItems().length && st.dividerShow ? rule() : "", 12],
+            [contactsTable(), 12],
+            [extrasBlock(), 10],
+            [socialsBlock(), 12],
+            [ctaBlock(), 12],
+            [logoBlock(), 12],
+          ])
+        );
+      } else {
+        const sub = [id.title.trim() && esc(id.title), id.company.trim() && `<b>${esc(id.company)}</b>`]
+          .filter(Boolean)
+          .join(sep);
+        const head =
+          nameLine(0) +
+          (sub ? `<div style="font-family:${F};font-size:${st.titleSize}px;color:${st.titleColor};">${sub}</div>` : "") +
+          (id.tagline.trim()
+            ? `<div style="font-family:${F};font-size:${st.bodySize}px;font-style:italic;color:${st.mutedColor};">${nl2br(id.tagline)}</div>`
+            : "");
+        body = oneCol(
+          stack(
+            [
+              [head, 0],
+              [contactsInline(), 8],
+              [socialsBlock(true), 4],
+              [extrasBlock(), 8],
+              [ctaBlock(), 10],
+              [logoBlock(), 10],
+            ],
+            6
+          )
+        );
+      }
+
+      return `<table ${TBL} style="border-collapse:collapse;font-family:${F};color:${st.textColor};">${body}</table>`;
+    }
+
+    /* ====================== Rendering ====================== */
+    const mount = document.getElementById("mount");
+    const stage = document.getElementById("stage");
+    const sourceEl = document.getElementById("source");
+    let lastHtml = "";
+    const brokenImages = new Set();
+
+    function update() {
+      lastHtml = build(state);
+      brokenImages.clear();
+      mount.innerHTML = lastHtml;
+      mount.querySelectorAll("img").forEach((im) => {
+        im.addEventListener("error", () => {
+          brokenImages.add(im.getAttribute("src"));
+          renderChecks();
+        });
+      });
+      sourceEl.value = lastHtml;
+      stage.className = "stage " + ui.theme + (ui.view === "mobile" ? " mobile" : "");
+      renderChecks();
+      save();
+    }
+
+    function renderChecks() {
+      const list = [];
+      const add = (level, text) => list.push([level, text]);
+      const imgs = [...mount.querySelectorAll("img")];
+
+      const local = imgs.filter((im) => {
+        const src = im.getAttribute("src") || "";
+        if (src.startsWith("data:")) return true;
+        try {
+          const u = new URL(src);
+          return (
+            u.protocol === "file:" ||
+            ["localhost", "127.0.0.1", "[::1]"].includes(u.hostname) ||
+            /^(10\.|192\.168\.)/.test(u.hostname)
+          );
+        } catch (e) {
+          return true;
+        }
+      });
+      if (local.length) {
+        add("bad", `${local.length} image(s) are not publicly hosted (local file or upload). Gmail recipients will not see them. Host them and paste the public URL.`);
+      } else if (imgs.length) {
+        add("ok", "All images use public URLs.");
+      }
+      if (brokenImages.size) add("bad", `${brokenImages.size} image(s) failed to load. Check the URL.`);
+      if (!state.style.darkSafe) add("warn", "Dark-mode-safe images are off: Gmail dark mode may invert black icons and dark photos.");
+
+      if (!state.contacts.some((c) => c.text.trim()) && !state.socials.some((x) => x.url.trim())) {
+        add("warn", "No contact details or social links added.");
+      }
+      if (state.cta.enabled && !state.cta.url.trim()) add("warn", "The button has no link.");
+      if (state.photo.enabled && !state.photo.src.trim() && state.layout !== "minimal") add("warn", "Photo is enabled but has no image.");
+
+      const len = lastHtml.length;
+      const pct = Math.min(100, (len / GMAIL_LIMIT) * 100);
+      const lvl = len > GMAIL_LIMIT ? "bad" : len > GMAIL_LIMIT * 0.8 ? "warn" : "ok";
+      add(lvl, `HTML size: ${len.toLocaleString()} of ${GMAIL_LIMIT.toLocaleString()} characters (Gmail's signature limit).`);
+
+      document.getElementById("checks").innerHTML = list
+        .map(([l, t]) => `<li><span class="dot ${l}">${l === "ok" ? "&#10003;" : "!"}</span><span>${esc(t)}</span></li>`)
+        .join("");
+      const meter = document.getElementById("meter");
+      meter.style.width = pct + "%";
+      meter.className = lvl === "ok" ? "" : lvl;
+    }
+
+    /* ====================== Form binding ====================== */
+    function fillFontSelects() {
+      document.querySelectorAll("[data-fonts]").forEach((sel) => {
+        sel.innerHTML = Object.keys(FONTS)
+          .map((f) => `<option value="${esc(f)}">${esc(f)}</option>`)
+          .join("");
+      });
+    }
+
+    function refreshVals() {
+      document.querySelectorAll("[data-val]").forEach((el) => {
+        el.textContent = getPath(el.dataset.val);
+      });
+    }
+
+    function syncForm() {
+      document.querySelectorAll("[data-k]").forEach((el) => {
+        const v = getPath(el.dataset.k);
+        if (el.type === "checkbox") el.checked = !!v;
+        else el.value = v == null ? "" : v;
+      });
+      document.querySelectorAll("[data-seg]").forEach((seg) => {
+        const v = getPath(seg.dataset.seg);
+        seg.querySelectorAll("button").forEach((b) => {
+          const on = b.dataset.v === v;
+          b.classList.toggle("on", on);
+          b.setAttribute("aria-pressed", on);
+        });
+      });
+      refreshVals();
+    }
+
+    function buildImgFields() {
+      document.querySelectorAll("[data-imgfield]").forEach((box) => {
+        const k = box.dataset.imgfield;
+        box.className = "imgfield";
+        box.innerHTML = `
+          <input type="text" data-k="${k}" placeholder="https://… or ../assets/…" aria-label="Image URL" />
+          <label class="btn alt small">Upload<input type="file" accept="image/*" data-upload="${k}" hidden /></label>
+          <button type="button" class="btn alt small" data-clear="${k}" aria-label="Clear image">Clear</button>`;
+      });
+    }
+
+    function readImage(file, cb) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (/gif|svg/.test(file.type)) return cb(reader.result);
+        const im = new Image();
+        im.onload = () => {
+          const k = Math.min(1, 600 / Math.max(im.width, im.height));
+          const c = document.createElement("canvas");
+          c.width = Math.round(im.width * k);
+          c.height = Math.round(im.height * k);
+          c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+          cb(c.toDataURL(file.type === "image/jpeg" ? "image/jpeg" : "image/png", 0.9));
+        };
+        im.onerror = () => toast("That file could not be read as an image.");
+        im.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    document.addEventListener("input", (e) => {
+      const el = e.target;
+      if (!el.dataset || !el.dataset.k) return;
+      let v = el.type === "checkbox" ? el.checked : el.value;
+      if (el.type === "range" || el.type === "number") v = Number(v);
+      setPath(el.dataset.k, v);
+      refreshVals();
+      update();
+    });
+
+    document.addEventListener("click", (e) => {
+      const seg = e.target.closest("[data-seg] button");
+      if (seg) {
+        setPath(seg.closest("[data-seg]").dataset.seg, seg.dataset.v);
+        syncForm();
+        update();
+        return;
+      }
+      const clear = e.target.closest("[data-clear]");
+      if (clear) {
+        setPath(clear.dataset.clear, "");
+        syncForm();
+        update();
+        return;
+      }
+      const add = e.target.closest("[data-add]");
+      if (add) {
+        const name = add.dataset.add;
+        state[name].push(LIST_DEFAULTS[name]());
+        renderList(name);
+        update();
+        const items = document.querySelectorAll(`#list-${name} .item`);
+        const input = items[items.length - 1].querySelector("input[type=text]");
+        if (input) input.focus();
+      }
+    });
+
+    document.addEventListener("change", (e) => {
+      const up = e.target.closest("[data-upload]");
+      if (up && up.files[0]) {
+        readImage(up.files[0], (url) => {
+          setPath(up.dataset.upload, url);
+          syncForm();
+          update();
+        });
+        up.value = "";
+        return;
+      }
+      const iu = e.target.closest("[data-item-upload]");
+      if (iu && iu.files[0]) {
+        const [list, i] = iu.dataset.itemUpload.split(":");
+        readImage(iu.files[0], (url) => {
+          state[list][i].icon = url;
+          renderList(list);
+          update();
+        });
+      }
+    });
+
+    /* ====================== Dynamic lists ====================== */
+    const field = (list, f, label, val, ph = "") =>
+      `<label class="f"><span>${label}</span><input type="text" data-list="${list}" data-f="${f}" value="${esc(val)}" placeholder="${esc(ph)}" /></label>`;
+
+    const iconField = (list, i, val) => {
+      const uploaded = /^data:/.test(val);
+      return `<div class="f"><span>Custom icon image</span>
+        <div class="imgfield">
+          <input type="text" data-list="${list}" data-f="icon" value="${uploaded ? "" : esc(val)}" placeholder="${uploaded ? "(uploaded image)" : "https://…"}" aria-label="Icon URL" />
+          <label class="btn alt small">Upload<input type="file" accept="image/*" data-item-upload="${list}:${i}" hidden /></label>
+        </div>
+      </div>`;
+    };
+
+    const controls = `<div class="mini">
+        <button type="button" data-act="up" aria-label="Move up" title="Move up">&uarr;</button>
+        <button type="button" data-act="down" aria-label="Move down" title="Move down">&darr;</button>
+        <button type="button" data-act="del" class="del" aria-label="Remove" title="Remove">&times;</button>
+      </div>`;
+
+    function itemHTML(list, i, it) {
+      const open = `<div class="item" data-i="${i}">`;
+      if (list === "contacts") {
+        const t = CONTACT_TYPES[it.type] || CONTACT_TYPES.custom;
+        const opts = Object.entries(CONTACT_TYPES)
+          .map(([k, v]) => `<option value="${k}"${k === it.type ? " selected" : ""}>${v.name}</option>`)
+          .join("");
+        return `${open}
+          <div class="item-row">
+            <select data-list="${list}" data-f="type" aria-label="Type">${opts}</select>
+            <input type="text" data-list="${list}" data-f="text" value="${esc(it.text)}" placeholder="${esc(t.ph)}" aria-label="Value" />
+            ${controls}
+          </div>
+          <details><summary>More options</summary><div class="more">
+            ${field(list, "href", "Link override", it.href, "Leave blank for automatic")}
+            ${field(list, "label", "Text label (when icons are text)", it.label, t.label || "e.g. Office")}
+            ${iconField(list, i, it.icon)}
+          </div></details>
+        </div>`;
+      }
+      if (list === "socials") {
+        const opts = Object.entries(PLATFORMS)
+          .map(([k, v]) => `<option value="${k}"${k === it.platform ? " selected" : ""}>${v.name}</option>`)
+          .join("");
+        return `${open}
+          <div class="item-row">
+            <select data-list="${list}" data-f="platform" aria-label="Platform">${opts}</select>
+            <input type="text" data-list="${list}" data-f="url" value="${esc(it.url)}" placeholder="https://" aria-label="URL" />
+            ${controls}
+          </div>
+          <details><summary>More options</summary><div class="more">
+            ${field(list, "label", "Text label", it.label, (PLATFORMS[it.platform] || {}).name || "")}
+            ${iconField(list, i, it.icon)}
+            <p class="hint">Platforms without a bundled icon show their name unless you supply an icon image.</p>
+          </div></details>
+        </div>`;
+      }
+      return `${open}
+        <div class="item-row wide">
+          <input type="text" data-list="${list}" data-f="text" value="${esc(it.text)}" placeholder="Text" aria-label="Text" />
+          ${controls}
+        </div>
+        <details><summary>More options</summary><div class="more">
+          ${field(list, "url", "Link (optional)", it.url, "https://")}
+          <div class="grid2">
+            <label class="switch"><input type="checkbox" data-list="${list}" data-f="bold"${it.bold ? " checked" : ""} />Bold</label>
+            <label class="switch"><input type="checkbox" data-list="${list}" data-f="italic"${it.italic ? " checked" : ""} />Italic</label>
+          </div>
+          <div class="grid2">
+            <label class="f"><span>Colour</span><input type="color" data-list="${list}" data-f="color" value="${it.color || "#000000"}" /></label>
+            <label class="f"><span>Size in px (0 = default)</span><input type="text" data-list="${list}" data-f="size" value="${it.size || 0}" inputmode="numeric" /></label>
+          </div>
+        </div></details>
+      </div>`;
+    }
+
+    function renderList(name) {
+      document.getElementById("list-" + name).innerHTML = state[name].map((it, i) => itemHTML(name, i, it)).join("");
+    }
+    const renderAllLists = () => Object.keys(LIST_DEFAULTS).forEach(renderList);
+
+    Object.keys(LIST_DEFAULTS).forEach((name) => {
+      const box = document.getElementById("list-" + name);
+
+      box.addEventListener("input", (e) => {
+        const el = e.target;
+        const item = el.closest(".item");
+        if (!item || !el.dataset.f) return;
+        const i = Number(item.dataset.i);
+        let v = el.type === "checkbox" ? el.checked : el.value;
+        if (el.dataset.f === "size") v = Math.max(0, Math.min(40, parseInt(v, 10) || 0));
+        state[name][i][el.dataset.f] = v;
+        if (el.dataset.f === "type" || el.dataset.f === "platform") renderList(name);
+        update();
+      });
+
+      box.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-act]");
+        if (!btn) return;
+        const i = Number(btn.closest(".item").dataset.i);
+        const arr = state[name];
+        if (btn.dataset.act === "del") arr.splice(i, 1);
+        else {
+          const j = btn.dataset.act === "up" ? i - 1 : i + 1;
+          if (j < 0 || j >= arr.length) return;
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        renderList(name);
+        update();
+      });
+    });
+
+    /* ====================== Export / import ====================== */
+    function toast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(toast.timer);
+      toast.timer = setTimeout(() => t.classList.remove("show"), 3200);
+    }
+
+    async function copyRich() {
+      try {
+        await navigator.clipboard.write([
+          new ClipboardItem({
+            "text/html": new Blob([lastHtml], { type: "text/html" }),
+            "text/plain": new Blob([mount.innerText], { type: "text/plain" }),
+          }),
+        ]);
+        return toast("Signature copied. Paste it into Gmail.");
+      } catch (e) {}
+      const range = document.createRange();
+      range.selectNodeContents(mount);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      let ok = false;
+      try {
+        ok = document.execCommand("copy");
+      } catch (e) {}
+      sel.removeAllRanges();
+      toast(ok ? "Signature copied. Paste it into Gmail." : "Copy failed. Select the preview manually and copy.");
+    }
+
+    async function copyHtml() {
+      try {
+        await navigator.clipboard.writeText(lastHtml);
+        return toast("HTML copied.");
+      } catch (e) {}
+      sourceEl.select();
+      let ok = false;
+      try {
+        ok = document.execCommand("copy");
+      } catch (e) {}
+      toast(ok ? "HTML copied." : "Copy failed. Open HTML source and copy it manually.");
+    }
+
+    function download(name, content, type) {
+      const url = URL.createObjectURL(new Blob([content], { type }));
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    document.getElementById("copy-rich").addEventListener("click", copyRich);
+    document.getElementById("copy-html").addEventListener("click", copyHtml);
+    document.getElementById("download").addEventListener("click", () => {
+      const doc = `<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><title>Email signature</title></head>\n<body>\n${lastHtml}\n</body></html>\n`;
+      download("gmail-signature.html", doc, "text/html");
+    });
+    document.getElementById("export-json").addEventListener("click", () => {
+      download("signature-design.json", JSON.stringify(state, null, 2), "application/json");
+    });
+    document.getElementById("import-json").addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          state = merge(DEFAULT_STATE, JSON.parse(reader.result));
+          renderAllLists();
+          syncForm();
+          update();
+          toast("Design imported.");
+        } catch (err) {
+          toast("That file is not a valid design.");
+        }
+      };
+      reader.readAsText(file);
+      e.target.value = "";
+    });
+    document.getElementById("reset").addEventListener("click", () => {
+      if (!confirm("Reset the signature to the default design? Your changes will be lost.")) return;
+      state = clone(DEFAULT_STATE);
+      renderAllLists();
+      syncForm();
+      update();
+    });
+
+    // Preview links stay inert.
+    mount.addEventListener("click", (e) => {
+      if (e.target.closest("a")) e.preventDefault();
+    });
+
+    /* ====================== Init ====================== */
+    fillFontSelects();
+    buildImgFields();
+    renderAllLists();
+    syncForm();
+    update();
+  </script>
+</html>
